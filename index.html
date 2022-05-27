@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<!-- <script src="https://unpkg.com/vue@next"></script> -->
+		<script src="./js/v2.6.10/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>商品：{{goods}}</p>
+			<p>单价：{{price}}</p>
+			<p>数量：{{num}}</p>
+			<p>总价：{{total}}</p>
+			<input type="button" value="减少" @click="num == 0 ? num = 0 :num--"/>
+			<input type="button"  value="增加" @click="num++"/>
+		</div>
+			
+		<script>
+			var vm = new Vue({
+				el:"#app",
+				data:{
+					goods:"商品1",
+					price:100,
+					num:1,
+				},				
+				computed:{
+					total(){
+						return this.price * this.num;
+					}
+				},
+				watch:{
+					num:"checkNum"
+				},
+				methods:{
+					checkNum(){
+						this.num >= 15 ? this.num = 15 : true;
+					}
+				},
+			});
+		</script>
+	</body>
+</html>
