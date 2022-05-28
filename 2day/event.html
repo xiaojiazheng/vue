@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!-- 
+	vue修饰符
+  -->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../js/v2.6.10/vue.js" type="text/javascript" charset="utf-8"></script>		
+	</head>
+	<body>
+		<div id="app">
+			<h2>表单修饰符</h2>
+			<p>1.lazy:光标离开标签的时候，才会将值赋予给value，
+			也就是在change事件之后再进行信息同步</p>
+			<input type="text" v-model.lazy="value1">
+			<p> [lazy]-你输入的是：{{value1}}</p>
+			<p>2.trim:自动过滤用户输入的首空格字符，而中间的
+			空格不会过滤</p>
+			<input type="text" v-model.trim="value2">
+			<p> [trim]-trim过滤后：{{value2}}</p>
+			<p>3.number:自动将用户的输入值转为数值类型，但如果
+			这个值无法被parseFloat解析，则会返回原来的值</p>
+			<input v-model.number="value3" type="number">
+			<p> [number]-转类型：{{value3}}</p>
+			<h2>事件修饰符</h2>
+			<div @click="shout(2)">
+			  <button @click="shout(1)">ok</button>
+			</div>
+			<p>shout的值为 {{shoutvar}}</p>
+			<p>下面stop阻止了事件冒泡，相当于调用了event.stopPropagation方法</p>
+			<div @click="shout(2)">
+			  <button @click.stop="shout(1)">ok</button>
+			</div>
+			<p>prevent阻止了事件的默认行为，相当于调用了event.preventDefault方法</p>
+			<div @click="shout(2)">
+			  <button @click.prevent="shout(1)">ok</button>
+			</div>
+			<p>self只当在 event.target 是当前元素自身时触发处理函数</p>
+			<div @click="shout(2)">
+			  <button @click.self="shout(1)">ok</button>
+			</div>
+			<p>once绑定了事件以后只能触发一次，第二次就不会触发</p>
+			<div @click.once="shout(2)">
+			  <button @click="shout(1)">ok</button>
+			</div>
+			<p>capture使事件触发从包含这个元素的顶层开始往下触发</p>
+			<div @click.capture="shout(1)">
+			    obj1
+				<div @click.capture="shout(2)">
+					obj2
+					<div @click="shout(3)">
+						obj3
+						<div @click="shout(4)">
+							obj4
+						</div>
+					</div>
+				</div>
+			</div>
+			<h2>鼠标按钮修饰符</h2>
+			<p>鼠标按钮修饰符针对的就是左键、右键、中键点击，有如下：	left 左键点击
+			right 右键点击
+			middle 中键点击</p>					
+			<button @click.left="shout('左')">左键点击
+			<button @click.right="shout('右')">右键点击
+			<button @click.middle="shout('中')">中键点击
+		</div>
+		<script>
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				value1:"",
+				value2:"",
+				value3:"",
+				shoutvar:0,
+				
+			},
+			methods:{
+				shout(va){
+					this.shoutvar = va;
+				}
+			}
+		});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- 
+	双向绑定实例
+	简单实现了账号密码长度实时检测
+  -->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../js/v2.6.10/vue.js" type="text/javascript" charset="utf-8"></script>		
+	</head>
+	<body>
+		<div id="app">
+			<label>账号：</label><input type="text" v-model="userName"/>{{msg1}}<br/>
+			<label>密码：</label><input type="password" v-model="password"/>{{msg2}}<br/>
+			
+		</div>
+		<script>
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				userName:"",
+				passWord:""
+			},
+			computed:{
+				msg1(){
+					if(this.userName.length == 0)
+					return "";
+					var text;
+					if(this.userName.length<5)
+					text = "过短";
+					else if(this.userName.length>10)
+					text = "过长";
+					return text;
+				},
+				msg2(){
+					if(this.passWord.length == 0)
+					return "";
+					var text;
+					if(this.passWord.length<5)
+					text = "过短";
+					else if(this.passWord.length>10)
+					text = "过长";
+					return text;
+				}
+			}
+		});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- 
+	简单试验了其他的几个 v- 指令
+	vue2 中 v-if 比 v-for优先级小，不能写在一个标签里，外面套一个
+	<template>标签
+	<template> 标记用作容纳页面加载时对用户隐藏的 HTML 内容的容器。
+  -->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="../js/v2.6.10/vue.js" type="text/javascript" charset="utf-8"></script>		
+	</head>
+	<body>
+		<div id="app">
+			<div v-text="text1"></div>
+			<div v-html="text2"></div>
+			<input v-bind:value="text3"/>单项绑定by v-bind:value<br/><br/>		
+			<input v-model = "text3"/>双向绑定by v-model<br/>
+			<p>数据层中的text3:{{text3}}</p>
+			<button v-on:click="recoverText3">v-on 重置text3</button><br/><br/>
+			<button v-on:click="show = ! show">v-for 渲染列表演示</button>
+			<template v-if="show">
+				<div v-show="show" v-for="(item,key2) in list" data-id="key">
+					客户ID:{{key2+1}} 姓名:{{item.name}} 性别：{{item.sex}}
+					<br/><br/>
+				</div>
+			</template>
+			<p>v-for 是改变display属性</p><br/>
+			<template v-if="show">
+				<div v-for="(item,key) in list" data-id="key">
+					客户ID:{{key+1}} 姓名:{{item.name}} 性别：{{item.sex}}
+					<br/><br/>
+				</div>
+			</template>
+			<p>v-if 是直接销毁和重新创建元素</p>
+		</div>
+		<script>
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				text1:"我是纯文本的一段文字 by v-text",
+				text2:"<h2>我是h2的一段文字 by v-html</h2>",
+				text3:"我是初始text3",
+				show:true,
+				list:[
+					{name:"喃喃",sex:"男"},
+					{name:"喃喃2",sex:"女"},
+					{name:"喃喃3",sex:"男"}
+					]
+			},
+			computed:{
+				
+			},
+			methods:{
+				recoverText3(){
+					this.text3 = "我是重置的text3"
+				}
+			}
+		});
+		</script>
+	</body>
+</html>
